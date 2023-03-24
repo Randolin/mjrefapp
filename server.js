@@ -1,9 +1,9 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
-import * as dotenv from 'dotenv';
+import express from "express";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT;
 
 // function requireHTTPS(req: Request, res: Response, next: NextFunction) {
@@ -14,10 +14,10 @@ const port = process.env.PORT;
 // }
 
 // app.use(requireHTTPS);
-app.use(express.static('./dist/mjref'));
+app.use(express.static("./dist/mjref"));
 
-app.get('/*', function (req: Request, res: Response) {
-  res.sendFile('index.html', { root: 'dist/mjref/' });
+app.get("/*", function (req, res) {
+  res.sendFile("index.html", { root: "dist/mjref/" });
 });
 
 app.listen(process.env.PORT || 8080, () => {
