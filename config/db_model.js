@@ -4,6 +4,7 @@ const ArtistSchema = new mongoose.Schema(
   {
     _id: mongoose.Types.ObjectId,
     firstName: String,
+    middleName: String,
     lastName: String,
     referenceUrl: String,
     birthDate: String,
@@ -13,8 +14,9 @@ const ArtistSchema = new mongoose.Schema(
     longBio: String,
     representation: Number,
     artistImage: mongoose.Types.ObjectId,
-    originalImages: [mongoose.Types.ObjectId],
     tags: [mongoose.Types.ObjectId],
+    originalLandscapeImages: [mongoose.Types.ObjectId],
+    originalPortraitImages: [mongoose.Types.ObjectId],
   },
   { collection: "artists" }
 );
@@ -23,8 +25,11 @@ const ImageSchema = new mongoose.Schema(
   {
     _id: mongoose.Types.ObjectId,
     src: String,
-    tags: [mongoose.Types.ObjectId],
+    version: Number,
     original: Boolean,
+    prompt: String,
+    artist: mongoose.Types.ObjectId,
+    tags: [mongoose.Types.ObjectId],
   },
   { collection: "images" }
 );
