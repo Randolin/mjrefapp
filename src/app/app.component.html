@@ -9,9 +9,28 @@
     </div>
     <div class="table-subheader-container flex">
       <div *ngFor="let artist of artistIds" class="table-entry-row flex">
-        <div class="table-image-container flex">No Image</div>
+        <div class="table-image-container flex">
+          <img
+            *ngIf="originalMap[artists[artist]._id]"
+            class="table-image flex"
+            src="{{ originalMap[artists[artist]._id].src }}"
+          />
+          <ng-container *ngIf="!originalMap[artists[artist]._id]">
+            No Image
+          </ng-container>
+        </div>
         <div class="table-label flex">
-          {{ artists[artist].firstName }} {{ artists[artist].lastName }}
+          {{
+            artists[artist].firstName +
+              (artists[artist].middleName || artists[artist].lastName
+                ? " "
+                : "") +
+              (artists[artist].middleName ? artists[artist].middleName : "") +
+              (artists[artist].middleName && artists[artist].lastName
+                ? " "
+                : "") +
+              (artists[artist].lastName ? artists[artist].lastName : "")
+          }}
         </div>
         <div *ngFor="let prompt of prompts" class="table-image-container flex">
           <img

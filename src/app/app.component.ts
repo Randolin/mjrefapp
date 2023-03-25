@@ -15,6 +15,7 @@ export class AppComponent implements OnDestroy, OnInit {
   public images: { [id: string]: Image } = {};
   public prompts: string[] = [];
   public promptMap: { [prompt: string]: { [artistId: string]: Image } } = {};
+  public originalMap: { [artistId: string]: Image } = {};
   public tags: Tag[] = [];
 
   private artistsSubscription!: Subscription;
@@ -30,13 +31,18 @@ export class AppComponent implements OnDestroy, OnInit {
         console.log(artists);
         let ids: string[] = [];
         let result: { [id: string]: Artist } = {};
+
         artists = artists.sort((a: Artist, b: Artist): number => {
-          if (a.firstName == 'Midjourney' || a.lastName > b.lastName) {
+          if (a.firstName == 'Midjourney') {
+            return -1;
+          } else if (a.lastName && b.lastName && a.lastName > b.lastName) {
             return 1;
           } else {
             return -1;
           }
         });
+        console.log(artists);
+
         artists.forEach((artist) => {
           ids.push(artist._id);
           result[artist._id] = artist;
@@ -50,6 +56,7 @@ export class AppComponent implements OnDestroy, OnInit {
       .getImages()
       .subscribe((images: Image[]) => {
         console.log(images);
+        this.originalMap = {};
         this.promptMap = {};
         let ids: string[] = [];
         let prompts: string[] = [];
@@ -58,12 +65,17 @@ export class AppComponent implements OnDestroy, OnInit {
         images.forEach((image) => {
           ids.push(image._id);
           result[image._id] = image;
+
           if (image.artist && image.prompt) {
             if (!prompts.includes(image.prompt)) {
               prompts.push(image.prompt);
               this.promptMap[image.prompt] = {};
             }
             this.promptMap[image.prompt][image.artist] = image;
+          }
+
+          if (image.artist && image.original) {
+            this.originalMap[image.artist] = image;
           }
         });
 
