@@ -14,6 +14,7 @@
   overflow: hidden;
   margin: 0.5em;
   border: solid 0.0625em rgba(0, 0, 0, 0.5);
+  min-width: calc(100vw - 1.125em);
 }
 
 .table-subheader-container {
