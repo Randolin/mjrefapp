@@ -13,6 +13,7 @@
           <img
             *ngIf="originalMap[artists[artist]._id]"
             class="table-image flex"
+            loading="lazy"
             src="{{ originalMap[artists[artist]._id].src }}"
           />
           <ng-container *ngIf="!originalMap[artists[artist]._id]">
@@ -20,22 +21,32 @@
           </ng-container>
         </div>
         <div class="table-label flex">
-          {{
-            artists[artist].firstName +
-              (artists[artist].middleName || artists[artist].lastName
-                ? " "
-                : "") +
-              (artists[artist].middleName ? artists[artist].middleName : "") +
-              (artists[artist].middleName && artists[artist].lastName
-                ? " "
-                : "") +
-              (artists[artist].lastName ? artists[artist].lastName : "")
-          }}
+          <a
+            target="_blank"
+            href="{{
+              artists[artist].referenceUrl
+                ? artists[artist].referenceUrl
+                : undefined
+            }}"
+          >
+            {{
+              artists[artist].firstName +
+                (artists[artist].middleName || artists[artist].lastName
+                  ? " "
+                  : "") +
+                (artists[artist].middleName ? artists[artist].middleName : "") +
+                (artists[artist].middleName && artists[artist].lastName
+                  ? " "
+                  : "") +
+                (artists[artist].lastName ? artists[artist].lastName : "")
+            }}
+          </a>
         </div>
         <div *ngFor="let prompt of prompts" class="table-image-container flex">
           <img
             *ngIf="promptMap[prompt][artists[artist]._id]"
             class="table-image flex"
+            loading="lazy"
             src="{{ promptMap[prompt][artists[artist]._id].src }}"
           />
           <ng-container *ngIf="!promptMap[prompt][artists[artist]._id]">

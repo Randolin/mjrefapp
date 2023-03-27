@@ -33,15 +33,12 @@ export class AppComponent implements OnDestroy, OnInit {
         let result: { [id: string]: Artist } = {};
 
         artists = artists.sort((a: Artist, b: Artist): number => {
-          if (a.firstName == 'Midjourney') {
-            return -1;
-          } else if (a.lastName && b.lastName && a.lastName > b.lastName) {
+          if (a.lastName && b.lastName && a.lastName > b.lastName) {
             return 1;
           } else {
             return -1;
           }
         });
-        console.log(artists);
 
         artists.forEach((artist) => {
           ids.push(artist._id);
