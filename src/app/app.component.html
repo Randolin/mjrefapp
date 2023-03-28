@@ -29,17 +29,7 @@
                 : undefined
             }}"
           >
-            {{
-              artists[artist].firstName +
-                (artists[artist].middleName || artists[artist].lastName
-                  ? " "
-                  : "") +
-                (artists[artist].middleName ? artists[artist].middleName : "") +
-                (artists[artist].middleName && artists[artist].lastName
-                  ? " "
-                  : "") +
-                (artists[artist].lastName ? artists[artist].lastName : "")
-            }}
+            {{ getArtistName(artists[artist]) }}
           </a>
         </div>
         <div *ngFor="let prompt of prompts" class="table-image-container flex">

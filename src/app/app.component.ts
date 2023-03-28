@@ -22,6 +22,8 @@ export class AppComponent implements OnDestroy, OnInit {
   private imagesSubscription!: Subscription;
   private tagsSubscription!: Subscription;
 
+  private MJID = '641e24fccf79831fc0bcf10c';
+
   constructor(private data: DataService) {}
 
   ngOnInit() {
@@ -33,7 +35,15 @@ export class AppComponent implements OnDestroy, OnInit {
         let result: { [id: string]: Artist } = {};
 
         artists = artists.sort((a: Artist, b: Artist): number => {
-          if (a.lastName && b.lastName && a.lastName > b.lastName) {
+          let nameA = a.lastName
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+          let nameB = b.lastName
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase();
+          if (nameA > nameB) {
             return 1;
           } else {
             return -1;
@@ -41,9 +51,12 @@ export class AppComponent implements OnDestroy, OnInit {
         });
 
         artists.forEach((artist) => {
-          ids.push(artist._id);
+          if (artist._id !== this.MJID) {
+            ids.push(artist._id);
+          }
           result[artist._id] = artist;
         });
+        ids.splice(0, 0, this.MJID);
 
         this.artistIds = ids;
         this.artists = result;
@@ -92,5 +105,29 @@ export class AppComponent implements OnDestroy, OnInit {
     this.artistsSubscription.unsubscribe();
     this.imagesSubscription.unsubscribe();
     this.tagsSubscription.unsubscribe();
+  }
+
+  getArtistName(artist: Artist) {
+    let name = '';
+
+    if (artist.honorific) {
+      name += artist.honorific + ' ';
+    }
+
+    if (artist.firstName) {
+      name += artist.firstName + ' ';
+    }
+
+    if (artist.middleName) {
+      name += artist.middleName + ' ';
+    }
+
+    name += artist.lastName;
+
+    if (artist.suffix) {
+      name += ' ' + artist.suffix;
+    }
+
+    return name;
   }
 }

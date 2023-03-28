@@ -1,8 +1,10 @@
 export interface Artist {
   _id: string;
-  firstName: string;
+  honorific?: string;
+  firstName?: string;
   middleName?: string;
-  lastName?: string;
+  lastName: string;
+  suffix?: string;
   referenceUrl?: string;
   birthDate?: string;
   deathDate?: string;
