@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Artist, Image, Tag } from '../../model/model';
+import { FilterService } from 'src/app/services/filter.service';
 
 @Component({
   selector: 'app-image-table',
@@ -14,6 +15,8 @@ export class ImageTableComponent {
     [prompt: string]: { [artistId: string]: Image };
   } = {};
   @Input() public originalMap: { [artistId: string]: Image } = {};
+
+  constructor(private filter: FilterService) {}
 
   getArtistName(artist: Artist) {
     let name = '';

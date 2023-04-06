@@ -9,17 +9,13 @@
     </div>
     <div class="table-subheader-container flex">
       <div *ngFor="let artist of artistIds" class="table-entry-row flex">
-        <div class="table-image-container flex">
-          <img
-            *ngIf="originalMap[artists[artist]._id]"
-            class="table-image flex"
-            loading="lazy"
-            src="{{ originalMap[artists[artist]._id].src }}"
-          />
-          <ng-container *ngIf="!originalMap[artists[artist]._id]">
-            No Image
-          </ng-container>
-        </div>
+        <app-image-entry
+          class="table-image-container flex"
+          [ngClass]="{ active: originalMap[artists[artist]._id] }"
+          [image]="originalMap[artists[artist]._id]"
+        >
+        </app-image-entry>
+
         <div class="table-label flex">
           <a
             target="_blank"
@@ -32,17 +28,14 @@
             {{ getArtistName(artists[artist]) }}
           </a>
         </div>
-        <div *ngFor="let prompt of prompts" class="table-image-container flex">
-          <img
-            *ngIf="promptMap[prompt][artists[artist]._id]"
-            class="table-image flex"
-            loading="lazy"
-            src="{{ promptMap[prompt][artists[artist]._id].src }}"
-          />
-          <ng-container *ngIf="!promptMap[prompt][artists[artist]._id]">
-            No Image
-          </ng-container>
-        </div>
+
+        <app-image-entry
+          *ngFor="let prompt of prompts"
+          class="table-image-container flex"
+          [ngClass]="{ active: promptMap[prompt][artists[artist]._id] }"
+          [image]="promptMap[prompt][artists[artist]._id]"
+        >
+        </app-image-entry>
       </div>
     </div>
   </div>
