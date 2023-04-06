@@ -9,13 +9,12 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService {
-  private baseApiPort = environment.apiPort || 8080;
+  private baseApiPort = environment.apiPort || null;
   private baseApiUri =
     window.location.protocol +
     '//' +
     window.location.hostname +
-    ':' +
-    this.baseApiPort +
+    (this.baseApiPort ? ':' + this.baseApiPort : '') +
     '/api/';
   private baseArtistsUri = this.baseApiUri + 'artists';
   private baseImagesUri = this.baseApiUri + 'images';
