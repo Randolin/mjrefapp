@@ -1,3 +1,4 @@
+import { environment } from '../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -8,7 +9,14 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService {
-  private baseApiUri = 'api/';
+  private baseApiPort = environment.apiPort || 8080;
+  private baseApiUri =
+    window.location.protocol +
+    '//' +
+    window.location.hostname +
+    ':' +
+    this.baseApiPort +
+    '/api/';
   private baseArtistsUri = this.baseApiUri + 'artists';
   private baseImagesUri = this.baseApiUri + 'images';
   private baseTagsUri = this.baseApiUri + 'tags';

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Artist, Image, Tag } from './model/model';
 import { DataService } from './services/data.service';
+import { environment } from './environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -24,13 +25,20 @@ export class AppComponent implements OnDestroy, OnInit {
 
   private MJID = '641e24fccf79831fc0bcf10c';
 
-  constructor(private data: DataService) {}
+  constructor(private data: DataService) {
+    if (environment.production) {
+      console.warn(`🚨 Console output is disabled on production!`);
+      console.log = function (): void {};
+      console.debug = function (): void {};
+      console.warn = function (): void {};
+      console.info = function (): void {};
+    }
+  }
 
   ngOnInit() {
     this.artistsSubscription = this.data
       .getArtists()
       .subscribe((artists: Artist[]) => {
-        console.log(artists);
         let ids: string[] = [];
         let result: { [id: string]: Artist } = {};
 
@@ -65,7 +73,6 @@ export class AppComponent implements OnDestroy, OnInit {
     this.imagesSubscription = this.data
       .getImages()
       .subscribe((images: Image[]) => {
-        console.log(images);
         this.originalMap = {};
         this.promptMap = {};
         let ids: string[] = [];
@@ -92,11 +99,9 @@ export class AppComponent implements OnDestroy, OnInit {
         this.prompts = prompts;
         this.imageIds = ids;
         this.images = result;
-        console.log(this.promptMap);
       });
 
     this.tagsSubscription = this.data.getTags().subscribe((tags: Tag[]) => {
-      console.log(tags);
       this.tags = tags;
     });
   }
@@ -105,29 +110,5 @@ export class AppComponent implements OnDestroy, OnInit {
     this.artistsSubscription.unsubscribe();
     this.imagesSubscription.unsubscribe();
     this.tagsSubscription.unsubscribe();
-  }
-
-  getArtistName(artist: Artist) {
-    let name = '';
-
-    if (artist.honorific) {
-      name += artist.honorific + ' ';
-    }
-
-    if (artist.firstName) {
-      name += artist.firstName + ' ';
-    }
-
-    if (artist.middleName) {
-      name += artist.middleName + ' ';
-    }
-
-    name += artist.lastName;
-
-    if (artist.suffix) {
-      name += ' ' + artist.suffix;
-    }
-
-    return name;
   }
 }

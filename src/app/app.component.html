@@ -1,49 +1,10 @@
 <div id="app-container" class="flex">
-  <div class="table-container flex">
-    <div class="table-header-row flex">
-      <div class="table-image-header flex">Original</div>
-      <div class="table-text-header flex">Artist</div>
-      <div *ngFor="let prompt of prompts" class="table-image-header flex">
-        "{{ prompt }}"
-      </div>
-    </div>
-    <div class="table-subheader-container flex">
-      <div *ngFor="let artist of artistIds" class="table-entry-row flex">
-        <div class="table-image-container flex">
-          <img
-            *ngIf="originalMap[artists[artist]._id]"
-            class="table-image flex"
-            loading="lazy"
-            src="{{ originalMap[artists[artist]._id].src }}"
-          />
-          <ng-container *ngIf="!originalMap[artists[artist]._id]">
-            No Image
-          </ng-container>
-        </div>
-        <div class="table-label flex">
-          <a
-            target="_blank"
-            href="{{
-              artists[artist].referenceUrl
-                ? artists[artist].referenceUrl
-                : undefined
-            }}"
-          >
-            {{ getArtistName(artists[artist]) }}
-          </a>
-        </div>
-        <div *ngFor="let prompt of prompts" class="table-image-container flex">
-          <img
-            *ngIf="promptMap[prompt][artists[artist]._id]"
-            class="table-image flex"
-            loading="lazy"
-            src="{{ promptMap[prompt][artists[artist]._id].src }}"
-          />
-          <ng-container *ngIf="!promptMap[prompt][artists[artist]._id]">
-            No Image
-          </ng-container>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-image-table
+    [artistIds]="this.artistIds"
+    [artists]="this.artists"
+    [promptMap]="this.promptMap"
+    [prompts]="this.prompts"
+    [originalMap]="this.originalMap"
+  >
+  </app-image-table>
 </div>

@@ -19,6 +19,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2022",
+    "types": ["node", "jest", "mocha"],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
