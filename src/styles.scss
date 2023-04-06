@@ -1,7 +1,29 @@
 @import "~normalize.css";
+@import "./variables.scss";
+
+::-webkit-scrollbar {
+  width: 0.4em;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-tint);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid var(--color-background-tint);
+  background: white;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(1.5);
+}
 
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-default);
+}
+
+a {
+  color: var(--color-font-light);
 }
 
 .flex {
