@@ -2,7 +2,7 @@
 @import "./variables.scss";
 
 ::-webkit-scrollbar {
-  width: 0.4rem;
+  width: 6rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -10,7 +10,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 1px solid var(--color-background-tint);
+  border: 1rem solid var(--color-background-tint);
   background: white;
 }
 
@@ -20,6 +20,7 @@
 
 * {
   font-family: var(--font-default);
+  font-size: 16rem;
 }
 
 a {

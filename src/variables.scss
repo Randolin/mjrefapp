@@ -12,4 +12,7 @@
   --color-neon-orange: #fb864b;
 
   --font-default: Arial, Helvetica, sans-serif;
+
+  --responsive-root-size: 1px;
+  font-size: var(--responsive-root-size);
 }
