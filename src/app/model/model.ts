@@ -40,4 +40,5 @@ export interface Tag {
   key: string;
   shortDescription?: string;
   longDescription?: string;
+  order: number;
 }

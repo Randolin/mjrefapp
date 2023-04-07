@@ -1,0 +1,10 @@
+<div *ngIf="this.tagIds.length > 0" id="filter-bar-container" class="flex">
+  <button
+    *ngFor="let tagId of this.tagIds"
+    class="tag-filter-button flex"
+    [ngClass]="{ active: this.filter.activeTagFilters.includes(tagId) }"
+    (click)="toggleTagFilter(tagId)"
+  >
+    {{ tagMap[tagId].key }}
+  </button>
+</div>

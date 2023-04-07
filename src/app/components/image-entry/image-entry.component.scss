@@ -1,3 +1,7 @@
+:host {
+  cursor: default;
+}
+
 :host.active:hover {
   filter: brightness(1.25);
   cursor: pointer;

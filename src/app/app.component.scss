@@ -1,5 +1,6 @@
 #app-container {
   position: absolute;
+  flex-direction: column;
   top: 0;
   left: 0;
   height: 100vh;
@@ -12,4 +13,10 @@
 
 app-image-table {
   flex: 1;
+  overflow: hidden;
+}
+
+app-settings-bar,
+#top-bar {
+  flex: 0.0001;
 }
