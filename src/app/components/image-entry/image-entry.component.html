@@ -1,8 +1,9 @@
 <img
   *ngIf="image"
+  #imageElement
   class="table-image flex"
   loading="lazy"
   src="{{ image.src }}"
-  onclick="this.requestFullscreen()"
+  (click)="toggleFullscreen()"
 />
 <ng-container *ngIf="!image"> No Image </ng-container>

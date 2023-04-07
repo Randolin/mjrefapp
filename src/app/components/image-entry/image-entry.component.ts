@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Image } from '../../model/model';
 
 @Component({
@@ -8,4 +8,18 @@ import { Image } from '../../model/model';
 })
 export class ImageEntryComponent {
   @Input() public image: Image | null = null;
+  @ViewChild('imageElement')
+  public imageElement!: ElementRef<HTMLImageElement>;
+
+  private fullscreenActive: boolean = false;
+
+  public toggleFullscreen() {
+    if (this.fullscreenActive && document.fullscreenElement) {
+      document.exitFullscreen();
+      this.fullscreenActive = false;
+    } else if (!document.fullscreenElement) {
+      this.imageElement.nativeElement.requestFullscreen();
+      this.fullscreenActive = true;
+    }
+  }
 }
