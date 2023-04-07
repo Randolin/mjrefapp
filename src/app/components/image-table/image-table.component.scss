@@ -1,15 +1,15 @@
 .table-container {
   flex-direction: column;
   overflow: hidden;
-  margin: 0.5em;
-  border-radius: 0.25em;
+  margin: 0.5rem;
+  border-radius: 0.25rem;
   color: var(--color-font-light);
   background-color: var(--color-background);
-  border: solid 0.0625em var(--color-background-tint);
-  max-height: calc(100% - 1.125em);
-  min-height: calc(100% - 1.125em);
-  max-width: calc(100% - 1.125em);
-  min-width: calc(100% - 1.125em);
+  border: solid 0.0625rem var(--color-background-tint);
+  max-height: calc(100% - 1.125rem);
+  min-height: calc(100% - 1.125rem);
+  max-width: calc(100% - 1.125rem);
+  min-width: calc(100% - 1.125rem);
 }
 
 .table-subheader-container {
@@ -20,7 +20,7 @@
 
 .table-header-row,
 .table-entry-row {
-  border-bottom: solid 0.0625em var(--color-background-tint);
+  border-bottom: solid 0.0625rem var(--color-background-tint);
 }
 
 .table-entry-row:last-of-type {
@@ -31,17 +31,17 @@
 .table-label,
 .table-image-header,
 .table-image-container {
-  min-width: 12em;
-  max-width: 12em;
+  min-width: 12rem;
+  max-width: 12rem;
   text-align: center;
   justify-content: center;
-  border-right: solid 0.0625em var(--color-background-tint);
+  border-right: solid 0.0625rem var(--color-background-tint);
 }
 
 .table-image-header,
 .table-image-container {
-  min-width: 15em;
-  max-width: 15em;
+  min-width: 15rem;
+  max-width: 15rem;
 }
 
 .table-label,
@@ -51,5 +51,5 @@
 
 .table-image-container {
   background: black;
-  min-height: 22.5em;
+  min-height: 22.5rem;
 }
