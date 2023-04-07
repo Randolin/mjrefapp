@@ -38,6 +38,12 @@
   border-right: solid 0.5rem var(--color-background-tint);
 }
 
+.table-label {
+  padding: 15rem;
+  min-width: 120rem;
+  max-width: 120rem;
+}
+
 .table-image-header,
 .table-image-container {
   min-width: 200rem;

@@ -1,22 +1,59 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Artist, Image, Tag } from '../../model/model';
 import { FilterService } from 'src/app/services/filter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-image-table',
   templateUrl: './image-table.component.html',
   styleUrls: ['./image-table.component.scss'],
 })
-export class ImageTableComponent {
-  @Input() public artistIds: string[] = [];
-  @Input() public artists: { [id: string]: Artist } = {};
-  @Input() public prompts: string[] = [];
-  @Input() public promptMap: {
+export class ImageTableComponent implements OnInit {
+  public artistIds: string[] = [];
+  public artists: { [id: string]: Artist } = {};
+  public prompts: string[] = [];
+  public promptMap: {
     [prompt: string]: { [artistId: string]: Image };
   } = {};
-  @Input() public originalMap: { [artistId: string]: Image } = {};
+  public originalMap: { [artistId: string]: Image } = {};
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private filter: FilterService) {}
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.filter.filteredArtistIds.subscribe((ids: string[]) => {
+        this.artistIds = ids;
+      })
+    );
+    this.subscriptions.push(
+      this.filter.filteredArtistMap.subscribe(
+        (artists: { [id: string]: Artist }) => {
+          this.artists = artists;
+        }
+      )
+    );
+    this.subscriptions.push(
+      this.filter.filteredPrompts.subscribe((prompts: string[]) => {
+        this.prompts = prompts;
+      })
+    );
+    this.subscriptions.push(
+      this.filter.filteredPromptMap.subscribe(
+        (promptMap: { [prompt: string]: { [artistId: string]: Image } }) => {
+          this.promptMap = promptMap;
+        }
+      )
+    );
+    this.subscriptions.push(
+      this.filter.filteredOriginalMap.subscribe(
+        (originalMap: { [artistId: string]: Image }) => {
+          this.originalMap = originalMap;
+        }
+      )
+    );
+  }
 
   getArtistName(artist: Artist) {
     let name = '';
@@ -40,5 +77,11 @@ export class ImageTableComponent {
     }
 
     return name;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }
