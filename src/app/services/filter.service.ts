@@ -171,13 +171,14 @@ export class FilterService implements OnDestroy {
     let originalMap: { [artistId: string]: Image } = {};
 
     const filteredImages = this.images.filter((image) => {
-      return (
-        image.original ||
-        this.activeTagFilters.length === 0 ||
-        image.tags.some((tag) => {
-          return this.activeTagFilters.includes(tag);
-        })
-      );
+      return image;
+      // return (
+      //   image.original ||
+      //   this.activeTagFilters.length === 0 ||
+      //   image.tags.some((tag) => {
+      //     return this.activeTagFilters.includes(tag);
+      //   })
+      // );
     });
 
     const filteredIds = filteredImages.map((image) => {
